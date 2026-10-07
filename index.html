@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./utils.js"></script>
+    <script type="module" src="./main.js"></script>
+</head>
+<body>
+    <svg id="liquid-glass" width="0" height="0" aria-hidden="true">
+        <filter id="liquid-glass-effect" color-interpolation-filters="sRGB">
+            <feImage
+                id="disp"
+                href=""
+                result="displacement-map"
+            />
+            <feGaussianBlur in="displacement-map" stdDeviation="10" result="smoothed-displacement"/>
+            <feDisplacementMap
+                in="SourceGraphic"
+                in2="smoothed-displacement"
+                scale="50"
+                xChannelSelector="R" 
+                yChannelSelector="G"
+            />
+        </filter>
+    </svg>
+    <div class="first-column">
+        <p style="font-size: xx-large;">Testing Liquid Glass</p>
+        <p style="font-size: large;">
+            <label for="bezel-width">Bezel Width:</label>
+            <!--values are relative to the length (513px with 256px radius) of the canvas-->
+            <input type="range" id="bezel-width" name="bezel-width" min="100" max="500" value="240">
+        </p>
+        <p style="font-size: large;">
+            Choose the lens curvature:<br>
+            <label for="circle">
+                Circle
+                <input type="radio" id="circle" name="lens-curvature" value="circle">
+            </label>
+            <label for="squircle">
+                Squircle
+                <input type="radio" id="squircle" name="lens-curvature" value="squircle">
+            </label>
+        </p>
+        <img width="255" height="255" src="" alt="displacement map based on circular curvature"></canvas>
+        <img width="255" height="255" src="" alt="displacement map based on squircle curvature"></canvas>
+    </div>
+    <div class="second-column">
+        <div class="liquid-glass"></div>
+    </div>
+</body>
+</html>

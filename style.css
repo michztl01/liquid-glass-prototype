@@ -1,0 +1,155 @@
+/* Use a more-intuitive box-sizing model */
+/* If you set box-sizing: border-box; on an element, 
+the padding and border are included in the calculation of the width and height 
+Plus box-sizing is a property that is not inheritable
+So it's useful to apply it to all elements with "*"
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+/* Margin and padding are not inheritable propeties
+    Basically this means that to set a margin for an element and all its
+    children we must use the "*" selector */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  /* Add accessible line-height */
+  line-height: 1.5;
+   /* svh is for mobile and indicates the vertical space without the adress bar */
+  min-height: 100svh;
+}
+
+/* Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  /* prevents overflow */
+  max-width: 100%;
+  /* preserve aspect ratio */
+  height: auto;
+}
+
+/* Inherit fonts for form controls to avoid weird 
+behavior in mobile devices from usage of small font
+sizes */
+input, button, textarea, select, fieldset {
+  font: inherit;
+}
+
+/* Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+} 
+
+/* this balance the words quantity for each line so the final 
+    line does not contain only few isolated words(orphans).
+    It's useful for short texts(from 2 to 4 lines)
+    This setting differs from pretty because it concentrates on
+    balancing the quantity of words without occupying all the line*/
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* Improve line wrapping */
+p {
+    /* confortable line length that preserves readability */
+    max-width: 60ch;
+    /* this property also prevents orphans */
+    text-wrap: pretty;
+}
+
+/* eliminate ul padding applied by browser styles */
+/* ul default browser settings contain padding-left:40px */
+ul {
+  padding: 0;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  /* the banner is useful just for development purpose*/
+  body::before {
+    content: "Preference: reduced motion active";
+    display: block;
+    background: #ffd;
+    padding: 1em;
+  }
+
+  * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+html{
+    background-image: linear-gradient(135deg, #53bdbb, #ddbdbb);
+    background-repeat: no-repeat;
+}
+
+svg{
+    display: none;
+}
+
+body{
+    /* width: 100vw; */
+    background-image: linear-gradient(white 2px, transparent 2px),
+        linear-gradient(to right, white 2px, transparent 2px);
+    background-size: 3rem 3rem;
+    animation: animateBackground 45s -5s linear infinite;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+}
+
+@keyframes animateBackground{
+    from{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: 100vw 100vw;
+    }
+}
+
+.first-column {
+    background-color: white;
+    border-radius: 20px;
+    min-height: 95svh;
+    width: 90%;
+    margin: auto;
+    > * {
+        margin: auto;
+        width: 85%;
+    }
+    > *:first-child{
+        margin-top: 1.25rem;
+    }
+}
+
+.second-column {
+  display: grid;
+  place-content: center;
+}
+
+.liquid-glass {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: transparent;
+  /* border: 1px solid black; */
+  margin: auto;
+  /* blur(0.08rem) */
+  image-rendering: auto;
+  backdrop-filter: url(#liquid-glass-effect) blur(0.06rem);
+}
